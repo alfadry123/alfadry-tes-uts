@@ -1,0 +1,776 @@
+<html>
+ <head>
+  <title>
+   Admin Dashboard
+  </title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+   body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+        }
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background-color: #ffffff;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .sidebar img {
+            width: 50px;
+            margin: 20px 0;
+        }
+        .sidebar h2 {
+            font-size: 16px;
+            color: #333;
+            margin: 10px 0;
+        }
+        .sidebar p {
+            font-size: 14px;
+            color: #777;
+            margin: 5px 0;
+        }
+        .sidebar .menu {
+            width: 100%;
+            padding: 0;
+            list-style: none;
+        }
+        .sidebar .menu li {
+            width: 100%;
+        }
+        .sidebar .menu li a {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .sidebar .menu li a:hover, .sidebar .menu li a.active {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .sidebar .menu li a i {
+            margin-right: 10px;
+        }
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+        .header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 {
+            font-size: 20px;
+            margin: 0;
+        }
+        .header .user-info {
+            display: flex;
+            align-items: center;
+        }
+        .header .user-info img {
+            width: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .header .user-info p {
+            margin: 0;
+            font-size: 14px;
+        }
+        .dashboard {
+            padding: 20px;
+        }
+        .dashboard h2 {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .cards {
+            display: flex;
+            justify-content: space-between;
+        }
+        .card {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 23%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .card i {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+        .card p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #777;
+        }
+        .card h3 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .card.blue i {
+            color: #007bff;
+        }
+        .card.green i {
+            color: #28a745;
+        }
+        .card.purple i {
+            color: #6f42c1;
+        }
+        .section {
+            margin-top: 20px;
+        }
+        .section h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .section table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .section table, .section th, .section td {
+            border: 1px solid #ddd;
+        }
+        .section th, .section td {
+            padding: 10px;
+            text-align: left;
+        }
+        .section th {
+            background-color: #f2f2f2;
+        }
+        .section .form-container {
+            margin-bottom: 20px;
+        }
+        .section .form-container input, .section .form-container select {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .section .form-container button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .section .form-container button:hover {
+            background-color: #0056b3;
+        }
+  </style>
+  <script>
+   function showSection(sectionId) {
+            var sections = document.querySelectorAll('.section');
+            sections.forEach(function(section) {
+                section.style.display = 'none';
+            });
+            document.getElementById(sectionId).style.display = 'block';
+        }
+  </script>
+ </head>
+ <body>
+  <div class="sidebar">
+   <img alt="logo unpam.PNG" height="50" src="logo unpam.PNG" width="50"/>
+   <h2>
+    Welcome, Universitas Pamulang
+   </h2>
+   <p>
+    Administrator
+   </p>
+   <ul class="menu">
+    <li>
+     <a class="active" href="#" onclick="showSection('dashboard')">
+      <i class="fas fa-tachometer-alt">
+      </i>
+      Dashboard
+     </a>
+    </li>
+    <li>
+     <a href="#" onclick="showSection('karyawan')">
+      <i class="fas fa-users">
+      </i>
+      Karyawan
+     </a>
+    </li>
+    <li>
+     <a href="#" onclick="showSection('jabatan')">
+      <i class="fas fa-briefcase">
+      </i>
+      Jabatan
+     </a>
+    </li>
+    <li>
+     <a href="#" onclick="showSection('divisi')">
+      <i class="fas fa-building">
+      </i>
+      Divisi
+     </a>
+    </li>
+    <li>
+     <a href="#" onclick="showSection('absensi')">
+      <i class="fas fa-calendar-check">
+      </i>
+      Absensi
+     </a>
+    </li>
+    <li>
+     <a href="#" onclick="showSection('izin')">
+      <i class="fas fa-calendar-times">
+      </i>
+      Izin
+     </a>
+    </li>
+    <li>
+     <a href="#" onclick="showSection('lembur')">
+      <i class="fas fa-clock">
+      </i>
+      Lembur
+     </a>
+    </li>
+   </ul>
+  </div>
+  <div class="main-content">
+   <div class="header">
+    <h1>
+     UNIVERSITAS PAMULANG
+    </h1>
+    <div class="user-info">
+     <img alt="User Avatar" height="40" src="logo unpam.PNG" width="40"/>
+    </div>
+   </div>
+   <div class="dashboard" id="dashboard">
+    <h2>
+     Sistem Informasi Manajemen Karyawan
+    </h2>
+    <p>
+     Admin Dashboard
+    </p>
+    <div class="cards">
+     <div class="card blue">
+      <i class="fas fa-users">
+      </i>
+      <p>
+       Data Pegawai
+      </p>
+      <h3>
+       13
+      </h3>
+     </div>
+     <div class="card green">
+      <i class="fas fa-calendar-check">
+      </i>
+      <p>
+       Absensi Hari Ini
+      </p>
+      <h3>
+       0
+      </h3>
+      <p>
+       11 May 2023
+      </p>
+     </div>
+     <div class="card blue">
+      <i class="fas fa-check-circle">
+      </i>
+      <p>
+       Izin Menunggu Konfirmasi
+      </p>
+      <h3>
+       2
+      </h3>
+     </div>
+     <div class="card purple">
+      <i class="fas fa-clock">
+      </i>
+      <p>
+       Lembur Menunggu Konfirmasi
+      </p>
+      <h3>
+       1
+      </h3>
+     </div>
+    </div>
+   </div>
+   <div class="section" id="karyawan" style="display:none;">
+    <h3>
+     Data Karyawan
+    </h3>
+    <div class="form-container">
+     <input placeholder="No" type="text"/>
+     <input placeholder="Kode" type="text"/>
+     <input placeholder="Nama" type="text"/>
+     <input placeholder="Email" type="text"/>
+     <input placeholder="Alamat" type="text"/>
+     <input placeholder="Jabatan" type="text"/>
+     <button>
+      Tambah Karyawan
+     </button>
+    </div>
+    <table>
+     <thead>
+      <tr>
+       <th>
+        No
+       </th>
+       <th>
+        Kode
+       </th>
+       <th>
+        Nama
+       </th>
+       <th>
+        Email
+       </th>
+       <th>
+        Alamat
+       </th>
+       <th>
+        Jabatan
+       </th>
+       <th>
+        Aksi
+       </th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr>
+       <td>
+        1
+       </td>
+       <td>
+        K001
+       </td>
+       <td>
+        alfadry mallato
+       </td>
+       <td>
+        alfadrymallato@gamil.com
+       </td>
+       <td>
+        Jl. merdeka no 30
+       </td>
+       <td>
+        Manager
+       </td>
+       <td>
+        <button>
+         Edit
+        </button>
+        <button>
+         Hapus
+        </button>
+       </td>
+      </tr>
+      <tr>
+       <td>
+        2
+       </td>
+       <td>
+        K002
+       </td>
+       <td>
+        yasmin fatimah azza zahra
+       </td>
+       <td>
+        yasmin@gmail.com
+       </td>
+       <td>
+        Jl. Sudirman, surabaya no,35
+       </td>
+       <td>
+        Staff
+       </td>
+       <td>
+        <button>
+         Edit
+        </button>
+        <button>
+         Hapus
+        </button>
+       </td>
+      </tr>
+     </tbody>
+    </table>
+   </div>
+   <div class="section" id="jabatan" style="display:none;">
+    <h3>
+     Data Jabatan
+    </h3>
+    <table>
+     <thead>
+      <tr>
+       <th>
+        No
+       </th>
+       <th>
+        Kode Jabatan
+       </th>
+       <th>
+        Jabatan
+       </th>
+       <th>
+        Aksi
+       </th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr>
+       <td>
+        1
+       </td>
+       <td>
+        J001
+       </td>
+       <td>
+        Manager
+       </td>
+       <td>
+        <button>
+         Edit
+        </button>
+        <button>
+         Hapus
+        </button>
+       </td>
+      </tr>
+      <tr>
+       <td>
+        2
+       </td>
+       <td>
+        J002
+       </td>
+       <td>
+        Staff
+       </td>
+       <td>
+        <button>
+         Edit
+        </button>
+        <button>
+         Hapus
+        </button>
+       </td>
+      </tr>
+     </tbody>
+    </table>
+   </div>
+   <div class="section" id="divisi" style="display:none;">
+    <h3>
+     Data Divisi
+    </h3>
+    <table>
+     <thead>
+      <tr>
+       <th>
+        No
+       </th>
+       <th>
+        Kode Divisi
+       </th>
+       <th>
+        Nama Divisi
+       </th>
+       <th>
+        Aksi
+       </th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr>
+       <td>
+        1
+       </td>
+       <td>
+        D001
+       </td>
+       <td>
+        IT
+       </td>
+       <td>
+        <button>
+         Edit
+        </button>
+        <button>
+         Hapus
+        </button>
+       </td>
+      </tr>
+      <tr>
+       <td>
+        2
+       </td>
+       <td>
+        D002
+       </td>
+       <td>
+        HR
+       </td>
+       <td>
+        <button>
+         Edit
+        </button>
+        <button>
+         Hapus
+        </button>
+       </td>
+      </tr>
+     </tbody>
+    </table>
+   </div>
+   <div class="section" id="absensi" style="display:none;">
+    <h3>
+     Data Absensi Karyawan
+    </h3>
+    <table>
+     <thead>
+      <tr>
+       <th>
+        No
+       </th>
+       <th>
+        Nama Karyawan
+       </th>
+       <th>
+        Tanggal
+       </th>
+       <th>
+        Lokasi Absen
+       </th>
+       <th>
+        Jam Masuk
+       </th>
+       <th>
+        Jam Keluar
+       </th>
+       <th>
+        Aksi
+       </th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr>
+       <td>
+        1
+       </td>
+       <td>
+        alfadry mallato
+       </td>
+       <td>
+        11 May 2024
+       </td>
+       <td>
+        Kantor
+       </td>
+       <td>
+        08:00
+       </td>
+       <td>
+        17:00
+       </td>
+       <td>
+        <button>
+         Edit
+        </button>
+        <button>
+         Hapus
+        </button>
+       </td>
+      </tr>
+      <tr>
+       <td>
+        2
+       </td>
+       <td>
+        yasmin fatimah azza zahra
+       </td>
+       <td>
+        11 May 2024
+       </td>
+       <td>
+        Kantor
+       </td>
+       <td>
+        08:00
+       </td>
+       <td>
+        17:00
+       </td>
+       <td>
+        <button>
+         Edit
+        </button>
+        <button>
+         Hapus
+        </button>
+       </td>
+      </tr>
+     </tbody>
+    </table>
+   </div>
+   <div class="section" id="izin" style="display:none;">
+    <h3>
+     Data Izin Karyawan
+    </h3>
+    <table>
+     <thead>
+      <tr>
+       <th>
+        No
+       </th>
+       <th>
+        Nama
+       </th>
+       <th>
+        Izin
+       </th>
+       <th>
+        Tanggal
+       </th>
+       <th>
+        Jam
+       </th>
+       <th>
+        Keterangan
+       </th>
+       <th>
+        Status
+       </th>
+       <th>
+        Aksi
+       </th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr>
+       <td>
+        1
+       </td>
+       <td>
+        alfadry mallato
+       </td>
+       <td>
+        Sakit
+       </td>
+       <td>
+        11 juli 2024
+       </td>
+       <td>
+        08:00
+       </td>
+       <td>
+        Demam
+       </td>
+       <td>
+        Menunggu
+       </td>
+       <td>
+        <button>
+         Edit
+        </button>
+        <button>
+         Hapus
+        </button>
+       </td>
+      </tr>
+      <tr>
+       <td>
+        2
+       </td>
+       <td>
+        yasmin fatimah azza zahra
+       </td>
+       <td>
+        Cuti
+       </td>
+       <td>
+        11 juni 2024
+       </td>
+       <td>
+        08:00
+       </td>
+       <td>
+        Liburan
+       </td>
+       <td>
+        Menunggu
+       </td>
+       <td>
+        <button>
+         Edit
+        </button>
+        <button>
+         Hapus
+        </button>
+       </td>
+      </tr>
+     </tbody>
+    </table>
+   </div>
+   <div class="section" id="lembur" style="display:none;">
+    <h3>
+     Data Lembur Karyawan
+    </h3>
+    <table>
+     <thead>
+      <tr>
+       <th>
+        No
+       </th>
+       <th>
+        Nama
+       </th>
+       <th>
+        Tanggal
+       </th>
+       <th>
+        Jam Lembur Mulai | Berakhir
+       </th>
+       <th>
+        Keperluan Lembur
+       </th>
+       <th>
+        Status
+       </th>
+       <th>
+        Aksi
+       </th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr>
+       <td>
+        1
+       </td>
+       <td>
+        alfadry mallato
+       </td>
+       <td>
+        11 May 2023
+       </td>
+       <td>
+        18:00 | 20:00
+       </td>
+       <td>
+        Penyelesaian Proyek
+       </td>
+       <td>
+        Men
